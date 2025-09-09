@@ -1,0 +1,3 @@
+body {
+    scroll-snap-type: y mandatory;
+}
