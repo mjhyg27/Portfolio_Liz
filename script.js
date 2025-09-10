@@ -1,30 +1,89 @@
 
-// add autoplay, stop on hover, dinamycally change the button state, etc
+class carousel {
+    constructor(options) {
+        this.index = 0;
+        this.buttons = document.querySelectorAll(options.buttonsSelector);
+        this.sliderSelectors = options.sliderSelectors;
+        this.containerSelector = options.containerSelector;
+        this.interval = options.interval;
+        this.autoPlay = null;
+    }
 
-let experienceCarousel = document.querySelector('.experience-carousel');
-let experienceButtons = document.querySelectorAll('.experience-button');
+    main() {
+        this.buttonsAddListeners();
+        this.containerAddListeners();
+        this.startAutoPlay();
+    }
 
-let carouselDate = document.querySelector('.carousel-date');
+    goToSlide(i) {
+        this.index = i;
+        this.deactiveButtons();
 
+        this.sliderSelectors.horizontal.forEach(selector => {
+            let slider = document.querySelector(selector);
+            let firstChild = slider.firstElementChild ;
+            let width = parseInt(firstChild.getBoundingClientRect().width);
 
-experienceButtons.forEach((button, index) => {
-    button.addEventListener('click', function () {
-        let buttons = document.querySelectorAll('.experience-button');
-        turnOffButtons(buttons);
-        experienceCarousel.style.transform = `translateX(${index * -100}vw)`;
-        button.classList.add('pressed-button');
-        carouselDate.style.transform = `translateY(${index * -20}%)`;
-    })
-    
-});
+            slider.style.transform = `translateX(-${width * i}px)`;
+        });
 
-function turnOffButtons(buttons) {
-    buttons.forEach(button => button.classList.remove('pressed-button'));
+        this.sliderSelectors.vertical.forEach(selector => {
+            let slider = document.querySelector(selector);
+            slider.style.transform = `translateY(-${i * 100}%)`;
+        });
+
+        if (this.buttons[i]) this.buttons[i].classList.add("pressed-button");
+    }
+
+    deactiveButtons() {
+        this.buttons.forEach(button => button.classList.remove('pressed-button'));
+    }
+
+    startAutoPlay() {
+        this.autoPlay = setInterval(() => {
+            this.goToSlide((this.index + 1) % this.buttons.length);
+        }, this.interval);
+    }
+
+    stopAutoPlay() {
+        clearInterval(this.autoPlay);
+        this.autoPlay = null;
+    }
+
+    buttonFunc(i) {
+        this.stopAutoPlay();
+        this.goToSlide(i)
+        this.startAutoPlay(); 
+    }
+
+    buttonsAddListeners() {
+        this.buttons.forEach((button, i) => {
+            button.addEventListener("click", () => this.buttonFunc(i));
+        });
+    }
+
+    containerAddListeners() {
+        let container = document.querySelector(this.containerSelector);
+
+        container.addEventListener("mouseenter", () => this.stopAutoPlay());
+        container.addEventListener("mouseleave", () => this.startAutoPlay());
+
+    }
 }
 
-function carouselAutoSlide() {
-    let buttons = document.querySelectorAll('.experience-button');
-    turnOffButtons(buttons);
-    experienceCarousel.style.transform = `translateX(${index * -100}vw)`;
-    button.classList.add('pressed-button'); 
-}
+
+experienceCarouselOptions = {
+    buttonsSelector: '.experience-button',
+    sliderSelectors: {
+        horizontal: ['.experience-carousel', '.company-gallery' ],
+        vertical: ['.carousel-date']
+    },
+    containerSelector: '.experience-carousel',
+    interval: 5000
+};
+
+let experienceCarousel = new carousel(experienceCarouselOptions);
+
+experienceCarousel.main();
+
+

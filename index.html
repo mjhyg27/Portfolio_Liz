@@ -39,15 +39,28 @@
             </div>
         </section>
 
-        <section id="experience" class="h-screen">
-            <div class="experience-container flex flex-col align-center h-full pl-6 pr-6 overflow-hidden  ">
-
-                <div class="header flex flex-col items-center h-1/5 gap-8 ">
+        <section id="experience" class="h-screen overflow-hidden">
+            <div class="experience-container flex flex-col align-center h-full pl-6 pr-6">
+                <div class="header flex flex-col items-center h-1/5 gap-8">
                     <h2 class="header text-6xl">Experience</h2>
-                    <h3 class="company flex items-center justify-center rounded-2xl text-4xl bg-gray-400 p-4 w-4/10">SharkNinja</h3>
-                </div>
+                    
 
-                <div class="experience-carousel flex w-[4000vw] h-55/100  items-center transition-transform duration-400  " >
+                    <div class="company-carousel bg-gray-400 rounded-2xl text-4xl h-4/10 w-1/5 relative overflow-hidden">
+                        <div class="company-gallery flex w-[300%] h-full transition-transform duration-400">
+                            <div class="w-full h-full flex items-center justify-center">
+                            <h3 class="company">SharkNinja</h3>
+                            </div>
+                            <div class="w-full h-full flex items-center justify-center">
+                            <h3 class="company">University of Sonora</h3>
+                            </div>
+                            <div class="w-full h-full flex items-center justify-center">
+                            <h3 class="company">Junior's Boutique</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="experience-carousel flex w-[4000vw] h-55/100  items-center transition-transform duration-400" >
 
                     <div class="role-container flex gap-8 items-center h-55/100 w-screen">
                         <div class="img-container w-4/10 h-auto">
@@ -66,7 +79,7 @@
 
                     <div class="role-container flex gap-8 items-center h-3/5 w-screen ">
                         <div class="img-container w-4/10 h-auto ">
-                            <img class="w-full h-auto object-contain" src="./images/logos/SharkNinja_logo.svg.png" alt="SharkNinja Logo">
+                            <img class="w-8/10 h-auto object-contain" src="./images/logos/unison_logo.svg" alt="SharkNinja Logo">
                         </div>
                         <div class="role w-5/10">
                             <p class="italic text-2xl">lolo - Ninja Quality Team</p>
@@ -81,7 +94,7 @@
                     
                     <div class="role-container flex gap-8 items-center h-3/5 w-screen ">
                         <div class="img-container w-4/10 h-auto ">
-                            <img class="w-full h-auto object-contain" src="./images/logos/SharkNinja_logo.svg.png" alt="SharkNinja Logo">
+                            <img class="w-full h-auto object-contain" src="./images/logos/JuniorsLogoVectorized.svg" alt="SharkNinja Logo">
                         </div>
                         <div class="role w-5/10">
                             <p class="italic text-2xl">lolo - Ninja Quality Team</p>
@@ -93,28 +106,28 @@
                             </ul>
                         </div>
                     </div>
-
+                    
                 </div>
-
-                <div class="carousel-date-container h-1/10 flex justify-start flex-col gap-8 pl-4 overflow-hidden ">
-                    <div class="carousel-date transition-transform duration-400">
-                        <div class="date-container">
+                
+                <!-- 100% worked here for this carousel, so copy this to the others -->
+                <div class="carousel-date-container h-1/10 flex justify-start flex-col gap-8 pl-4 overflow-hidden">
+                    <div class="carousel-date transition-transform duration-400  h-full ">
+                        <div class="date-container  h-full">
                             <p class="date text-4xl italic">June 2023 - December 2023</p>
                             <p class="location text-2xl italic">Boston, MA</p>
                         </div>
     
-                        <div class="date-container">
+                        <div class="date-container h-full">
                             <p class="date text-4xl italic">June 2023 - December 2023</p>
                             <p class="location text-2xl italic">guamas, MA</p>
                         </div>
     
-                        <div class="date-container">
+                        <div class="date-container h-full">
                             <p class="date text-4xl italic">June 2023 - December 2023</p>
                             <p class="location text-2xl italic">Boston, MA</p>
                         </div>
                     </div>
                 </div>
-                
                 <div class="slide-button-container flex grow-1 items-start justify-center gap-8 ">
                     <button type="button"  class="experience-button pressed-button" data-button="1"></button>
                     <button type="button" class="experience-button" data-button="1"></button>
