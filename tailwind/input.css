@@ -8,3 +8,15 @@
 .pressed-button {
     @apply bg-gray-500;
 }
+
+.element-hover {
+    @apply transition duration-300 transform hover:scale-115;
+}
+
+.project-slide {
+    @apply h-full  basis-[60%] grow-0 shrink-0;
+}
+
+.slide-image {
+    @apply max-w-[100%] w-full h-full object-cover rounded-4xl p-0 m-0;
+}

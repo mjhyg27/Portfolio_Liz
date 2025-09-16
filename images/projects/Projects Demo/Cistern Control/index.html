@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cistern Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="image-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Logo_de_la_Universidad_de_Sonora.svg" alt="University Logo">
+        </div>
+        <h1><span>Cistern</span> Control System</h1>
+        <div id="hamburguer-menu">=</div>
+    </header>    
+    
+    <main>
+        <h2>Water Level</h2>
+
+        <div id="main-grid">
+
+            <div class="descriptor-container">
+                <p class="descriptor">Flow</p>
+                <p id="flow" class="value">0 L/h</p>
+            </div>
+
+            <div class="button-container">
+                <p class="descriptor">Pump 1</p>
+                <div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="pump-1">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <p class="descriptor">Flow State</p>
+                <p id="flow-state" class="value off">Off</p>
+            </div>
+
+            <div class="button-container">
+                <p class="descriptor">Pump 2</p>
+                <div class="button-container2">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="pump-2">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div> 
+            
+            <div>
+                <p class="descriptor">Pressure</p>
+                <p id="pressure" class="value">0 psi</p>
+            </div>
+
+            <div class="tank-container">
+                <img src="https://static.thenounproject.com/png/173863-200.png" alt="water tank image">
+            </div>
+
+            <div class="button-container">
+                <p class="descriptor">Intake Valve</p>
+                <div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="intake">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="fill-percentage">0%</h3>
+
+    </main>
+</body>
+
+
+<script src="cisternScript.js"></script>
+</html>

@@ -1,3 +1,19 @@
-body {
-    scroll-snap-type: y mandatory;
+:root {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and 11 */
+  user-select: none; /* Standard syntax */
 }
+
+body {
+  scroll-snap-type: y mandatory;
+}
+
+.main-project  img { 
+ 
+  transform-origin: bottom center;
+   transition: transform 300ms ease;
+ }
+
+ .active {
+  filter: blur(0);
+ }
