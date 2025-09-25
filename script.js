@@ -154,77 +154,103 @@ experienceCarousel.main();
 //     mainCard.classList.remove('main-project');
     
 // })
-let currentIndex = 1; // start at 1 because index 0 will be the lastClone
-const track = document.querySelector('.project-track');
-const container = document.querySelector('.project-carousel');
-let slides = Array.from(document.querySelectorAll('.project-slide'));
 
-// === Step 1: Clone edges ===
-const firstClone = slides[0].cloneNode(true);
-const lastClone = slides[slides.length - 1].cloneNode(true);
-firstClone.classList.remove('active');
-lastClone.classList.remove('active');
+class ProjectCarousel {
+  constructor(container) {
+    this.currentIndex = 1;
+    this.container = container;
+    this.carouselContainer = this.container.querySelector('.project-carousel');
+    this.track = this.carouselContainer.querySelector('.project-track');
+    this.slides = this.track.querySelectorAll('.project-slide');
+    this.isAnimating = false;
+    this.firstClone = this.slides[0].cloneNode(true);
+    this.lastClone = this.slides[this.slides.length - 1].cloneNode(true);
+    
+    this.updateDimensions(); 
+    this.appendClones()
 
-track.appendChild(firstClone);
-track.insertBefore(lastClone, slides[0]);
+    this.container.querySelector('.next').addEventListener('click', () => {
+      this.goToSlide(this.currentIndex + 1);
+    });
+    
+    this.container.querySelector('.prev').addEventListener('click', () => {
+      this.goToSlide(this.currentIndex - 1);
+    });
+    
+    this.track.addEventListener('transitionend', () => this.infiniteAnimation());
 
-// Refresh slides list (now includes clones)
-slides = Array.from(document.querySelectorAll('.project-slide'));
+        
+    // === Init ===
+    this.goToSlide(this.currentIndex, false);
 
-// === Step 2: Center slide helper ===
-function goToSlide(index, animate = true) {
-  currentIndex = index;
-
-  const containerWidth = container.getBoundingClientRect().width;
-  const slide = slides[index];
-  const slideWidth = slide.getBoundingClientRect().width;
-  const slideLeft = slide.offsetLeft;
-
-  const offset = slideLeft - (containerWidth / 2 - slideWidth / 2);
-
-  if (!animate) {
-    track.style.transition = 'none';
-  } else {
-    track.style.transition = 'transform 0.5s ease';
   }
 
-  track.style.transform = `translateX(${-offset}px)`;
+  updateDimensions() {
+    const firstSlide = this.slides[1]; // Assuming index 1 is the first real slide
+    if (firstSlide) {
+        this.containerWidth = this.carouselContainer.getBoundingClientRect().width;
+        this.slideWidth = firstSlide.getBoundingClientRect().width;
+    }
+  } 
 
-  if (!animate) {
-    // force reflow so browser applies instantly
-    void track.offsetWidth;
-    track.style.transition = 'transform 0.5s ease';
+
+  infiniteAnimation(){
+
+    this.isAnimating = false; // ✅ re-enable buttons after animation
+
+    if (this.slides[this.currentIndex] === this.firstClone) {
+      this.currentIndex = 1;
+      this.goToSlide(this.currentIndex, false);
+    }
+    if (this.slides[this.currentIndex] === this.lastClone) {
+      this.currentIndex = this.slides.length - 2;
+      this.goToSlide(this.currentIndex, false);
+      }
+  }
+  
+  appendClones() {
+    this.firstClone.classList.remove('active');
+    this.lastClone.classList.remove('active');
+    this.track.appendChild(this.firstClone);
+    this.track.insertBefore(this.lastClone, this.slides[0]);
+    this.slides = Array.from(this.track.querySelectorAll('.project-slide'));
   }
 
-  document.querySelector('.active')?.classList.remove('active');
-  slide.classList.add('active');
+  goToSlide(index, animate = true) {
+    // ✅ Prevent out-of-range index
+    if (index < 0) index = this.slides.length - 1;
+    if (index >= this.slides.length) index = 0;
+    
+    // ✅ Prevent spamming clicks during animation
+    if (this.isAnimating && animate) return;
+    this.isAnimating = animate;
+  
+    this.currentIndex = index;
+    const slide = this.slides[this.currentIndex];
+    if (!slide) return; // extra safety guard
+  
+    const slideLeft = slide.offsetLeft;
+  
+    const offset = slideLeft - (this.containerWidth / 2 - this.slideWidth / 2);
+  
+    this.track.style.transition = animate ? 'transform 0.5s ease' : 'none';
+    this.track.style.transform = `translateX(${-offset}px)`;
+  
+    if (!animate) {
+      void this.track.offsetWidth; // force reflow
+      this.track.style.transition = 'transform 0.5s ease';
+    }
+  
+    this.carouselContainer.querySelector('.active')?.classList.remove('active');
+    slide.classList.add('active');
+  }
+
 }
 
-// === Step 3: Buttons ===
-document.querySelector('.next').addEventListener('click', () => {
-  goToSlide(currentIndex + 1);
-});
+document.querySelectorAll('.project-container')?.forEach( projectContainer => {
 
-document.querySelector('.prev').addEventListener('click', () => {
-  goToSlide(currentIndex - 1);
-});
+  let carouselContainer = projectContainer.querySelector('.carousel-container');
+  new ProjectCarousel(carouselContainer);
 
-// === Step 4: Handle teleporting ===
-track.addEventListener('transitionend', () => {
-  if (slides[currentIndex] === firstClone) {
-    // we’re on the fake first slide → jump to real first
-    currentIndex = 1;
-    goToSlide(currentIndex, false);
-  }
-  if (slides[currentIndex] === lastClone) {
-    // we’re on the fake last slide → jump to real last
-    currentIndex = slides.length - 2;
-    goToSlide(currentIndex, false);
-  }
-});
-
-// === Init ===
-goToSlide(currentIndex, false);
-
-
+})
 

@@ -14,9 +14,28 @@
 }
 
 .project-slide {
-    @apply h-full  basis-[60%] grow-0 shrink-0;
+    @apply h-full  basis-[60%] grow-0 shrink-0  bg-gray-100 rounded-4xl ;
+    
 }
 
 .slide-image {
-    @apply max-w-[100%] w-full h-full object-cover rounded-4xl p-0 m-0;
+    @apply max-w-[100%] w-full h-full rounded-4xl p-0 m-0;
+}
+
+.project-button {
+    /* Keep universal cursor and interaction effects */
+    @apply flex items-center justify-center cursor-pointer
+           transition-transform duration-75 hover:scale-105
+           active:scale-95 active:bg-gray-200;
+}
+
+.skill-card {
+    @apply flex flex-col justify-center items-center rounded-2xl bg-amber-500;
+}
+.skill-svg {
+    @apply transition-transform duration-75 transform hover:scale-105 
+}
+
+.skill-text {
+    @apply mt-2 text-lg font-semibold;
 }
